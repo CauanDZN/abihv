@@ -25,13 +25,14 @@ function exibir_cpt($post_type, $titulo, $search_query) {
         echo "<h2>{$titulo}</h2>";
         echo "<div class='conteudos-lista'>";
         while ($query->have_posts()) : $query->the_post();
-            $data = get_post_meta(get_the_ID(), '_data_referencia', true);
+            $data = get_post_meta(get_the_ID(), 'event_start_date', true);
+            $data_formatada = '';
 
-            if ($data) {
+            if (!empty($data)) {
                 $date = DateTime::createFromFormat('Y-m-d', $data);
                 $data_formatada = $date ? $date->format('d/m/Y') : '';
             }
-            
+
             echo "<div class='conteudo-item'>";
             echo "<h3><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h3>";
             echo "<p><strong>Data:</strong> " . esc_html($data_formatada) . "</p>";
